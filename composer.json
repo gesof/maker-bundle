@@ -1,0 +1,32 @@
+{
+    "name": "gesof/maker-bundle",
+    "version": "1.0.0",
+    "description": "Extension of SymfonyMakerBundle",
+    "keywords": ["maker", "generator", "code generator"],
+    "homepage": "https://bitbucket.org/gesof/maker-bundle",
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sebastian Radu",
+            "email": "seby@acron.ro",
+            "homepage": "https://acron.ro"
+        },
+        {
+            "name": "Alexandru Iordache",
+            "email": "alex@acron.ro",
+            "homepage": "https://acron.ro"
+        }
+    ],
+    "require": {
+        "php": "^7.0.8",
+        "symfony/maker-bundle": "^1.2.0"
+    },
+    "require-dev": {
+    },
+    "suggest": {
+    },
+    "autoload": {
+        "psr-4": { "Gesof\\MakerBundle\\": "" }
+    }
+}
