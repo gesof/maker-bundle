@@ -60,7 +60,10 @@ class <?= $class_name ?> extends <?= $parent_class_name; ?><?= "\n" ?>
     public function newAction(Request $request): Response
     {
         $<?= $entity_var_singular ?> = new <?= $entity_class_name ?>();
-        $form = $this->createForm(<?= $form_class_name ?>::class, $<?= $entity_var_singular ?>);
+        $form = $this->createForm(<?= $form_class_name ?>::class, $<?= $entity_var_singular ?>, array(
+            'method' => 'POST',
+            'action' => $this->generateUrl('<?= $route_name ?>_new')
+        ));
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -121,7 +124,12 @@ class <?= $class_name ?> extends <?= $parent_class_name; ?><?= "\n" ?>
             throw $this->createNotFoundException('Record not found');
         }
         
-        $form = $this->createForm(<?= $form_class_name ?>::class, $<?= $entity_var_singular ?>);
+        $form = $this->createForm(<?= $form_class_name ?>::class, $<?= $entity_var_singular ?>, array(
+            'method' => 'POST',
+            'action' => $this->generateUrl('<?= $route_name ?>_edit', array(
+                '<?= $entity_identifier ?>' => $<?= $entity_identifier ?> 
+            ))
+        ));
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

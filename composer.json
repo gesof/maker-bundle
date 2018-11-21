@@ -1,6 +1,6 @@
 {
     "name": "gesof/maker-bundle",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Extension of SymfonyMakerBundle",
     "keywords": ["maker", "generator", "code generator"],
     "homepage": "https://bitbucket.org/gesof/maker-bundle",
