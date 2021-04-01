@@ -211,6 +211,12 @@ class CrudHelper
         $this->entityClassDetails = new ClassNameDetails($this->entityClass,  $this->namespacePrefix.'\\Entity\\', '');
         $this->entityDoctrineDetails = $this->doctrineHelper->createDoctrineDetails($this->entityClassDetails->getFullName());
 
+	    $this->entityVarPlural = lcfirst(Inflector::pluralize($this->entityClassDetails->getShortName()));
+	    $this->entityVarSingular = lcfirst(Inflector::singularize($this->entityClassDetails->getShortName()));
+
+	    $this->entityTwigVarPlural = Str::asTwigVariable($this->entityVarPlural);
+	    $this->entityTwigVarSingular = Str::asTwigVariable($this->entityVarSingular);
+
         // create form class details
         $formClass = sprintf('%s\\Form\\%sType', $this->namespacePrefix, $this->className);
         $this->formClassDetails = new ClassNameDetails($formClass, $this->namespacePrefix.'\\Form\\', 'Type');
@@ -243,6 +249,14 @@ class CrudHelper
         ;
         
         $this->generator->writeChanges();
+
+	    $msg = "Please manually update twig configuration with path alias:<fg=green> 
+twig:
+    paths:
+        '%%kernel.project_dir%%/%s/Resources/views' : '%s'
+</>";
+
+	    $this->io->writeln(sprintf($msg, $this->bundleDir, $this->bundleName));
     }
     
     /**
@@ -261,11 +275,7 @@ class CrudHelper
             )
         );
         
-        $this->entityVarPlural = lcfirst(Inflector::pluralize($this->entityClassDetails->getShortName()));
-        $this->entityVarSingular = lcfirst(Inflector::singularize($this->entityClassDetails->getShortName()));
-        
-        $this->entityTwigVarPlural = Str::asTwigVariable($this->entityVarPlural);
-        $this->entityTwigVarSingular = Str::asTwigVariable($this->entityVarSingular);
+
         
         return $this;
     }
@@ -276,7 +286,7 @@ class CrudHelper
      */
     protected function generateController()
     {
-        $templatesPath = $this->bundleName.':'.$this->className;
+        $templatesPath = '@'.$this->bundleName.'/'.$this->className;
 
         $repositoryVars = array(
             'repository_full_class_name' => $this->repositoryClassDetails->getFullName(),
@@ -316,6 +326,8 @@ class CrudHelper
      */
     protected function generateTemplates()
     {
+	    $templatesPath = '@'.$this->bundleName.'/'.$this->className;
+
         // generate templates
         $templates = [
             '_delete_form' => [
@@ -331,6 +343,7 @@ class CrudHelper
                 'entity_identifier' => $this->entityDoctrineDetails->getIdentifier(),
                 'bundle_name' => $this->bundleName,
                 'route_name' => $this->routeName,
+	            'templates_path' => $templatesPath,
             ],
             'index' => [
                 'entity_class_name' => $this->entityClassDetails->getShortName(),
@@ -340,11 +353,13 @@ class CrudHelper
                 'entity_fields' => $this->entityDoctrineDetails->getDisplayFields(),
                 'bundle_name' => $this->bundleName,
                 'route_name' => $this->routeName,
+	            'templates_path' => $templatesPath,
             ],
             'new' => [
                 'entity_class_name' => $this->entityClassDetails->getShortName(),
                 'bundle_name' => $this->bundleName,
                 'route_name' => $this->routeName,
+	            'templates_path' => $templatesPath,
             ],
             'show' => [
                 'entity_class_name' => $this->entityClassDetails->getShortName(),
@@ -353,6 +368,7 @@ class CrudHelper
                 'entity_fields' => $this->entityDoctrineDetails->getDisplayFields(),
                 'bundle_name' => $this->bundleName,
                 'route_name' => $this->routeName,
+	            'templates_path' => $templatesPath,
             ],
         ];
 
@@ -379,13 +395,15 @@ class CrudHelper
 
             $crudRoutingVars = array(
                 'bundle_name' => $this->bundleName,
+                'controller_full_class_name' => $this->controllerClassDetails->getFullName(),
                 'entity' => $this->className,
                 'route_name' => $this->routeName,
                 'entity_identifier' => $this->entityDoctrineDetails->getIdentifier(),
                 'format' => $this->format,
             );
+
             $this->generator->generateFile($crudRoutingFilePath, $crudRoutingTemplatePath, $crudRoutingVars);
-            
+
             // generate or append to include file
             $routingFilePath = sprintf('%s/Resources/config/routing.%s', $this->bundleDir, $this->format);
             $routingTemplatePath = $this->generateTemplatePath(sprintf('crud/config/routing.%s.tpl.php', $this->format));

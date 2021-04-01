@@ -1,25 +1,25 @@
 <?= $route_name ?>_index:
     path: /
-    defaults: { _controller: "<?= sprintf('%s:%s:%s', $bundle_name, $entity, 'index') ?>" }
+    controller: <?= sprintf('%s:%s', $controller_full_class_name, 'indexAction') ?><?= "\n" ?>
     methods: GET
     
 <?= $route_name ?>_show:
     path: /{<?= $entity_identifier ?>}/show
-    defaults: { _controller: "<?= sprintf('%s:%s:%s', $bundle_name, $entity, 'show') ?>" }
+    controller: <?= sprintf('%s:%s', $controller_full_class_name, 'showAction') ?><?= "\n" ?>
     methods: GET
     
 <?= $route_name ?>_new:
     path: /new
-    defaults: { _controller: "<?= sprintf('%s:%s:%s', $bundle_name, $entity, 'new') ?>" }
+    controller: <?= sprintf('%s:%s', $controller_full_class_name, 'newAction') ?><?= "\n" ?>
     methods: [GET, POST]
     
 <?= $route_name ?>_edit:
     path: /{<?= $entity_identifier ?>}/edit
-    defaults: { _controller: "<?= sprintf('%s:%s:%s', $bundle_name, $entity, 'edit') ?>" }
+    controller: <?= sprintf('%s:%s', $controller_full_class_name, 'editAction') ?><?= "\n" ?>
     methods: [GET, POST]
     
 <?= $route_name ?>_delete:
     path: /{<?= $entity_identifier ?>}/delete
-    defaults: { _controller: "<?= sprintf('%s:%s:%s', $bundle_name, $entity, 'delete') ?>" }
+    controller: <?= sprintf('%s:%s', $controller_full_class_name, 'deleteAction') ?><?= "\n" ?>
     methods: DELETE
     

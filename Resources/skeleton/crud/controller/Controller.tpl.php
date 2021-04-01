@@ -46,7 +46,7 @@ class <?= $class_name ?> extends <?= $parent_class_name; ?><?= "\n" ?>
         
         $<?= $entity_var_plural ?> = $repo->findAll();
 
-        return $this->render('<?= $templates_path ?>:index.html.twig', ['<?= $entity_twig_var_plural ?>' => $<?= $entity_var_plural ?>]);
+        return $this->render('<?= $templates_path ?>/index.html.twig', ['<?= $entity_twig_var_plural ?>' => $<?= $entity_var_plural ?>]);
     }
 
     /**
@@ -75,7 +75,7 @@ class <?= $class_name ?> extends <?= $parent_class_name; ?><?= "\n" ?>
             return $this->redirectToRoute('<?= $route_name ?>_index');
         }
 
-        return $this->render('<?= $templates_path ?>:new.html.twig', [
+        return $this->render('<?= $templates_path ?>/new.html.twig', [
             '<?= $entity_twig_var_singular ?>' => $<?= $entity_var_singular ?>,
             'form' => $form->createView(),
         ]);
@@ -101,7 +101,7 @@ class <?= $class_name ?> extends <?= $parent_class_name; ?><?= "\n" ?>
             throw $this->createNotFoundException('Record not found');
         }
     
-        return $this->render('<?= $templates_path ?>:show.html.twig', ['<?= $entity_twig_var_singular ?>' => $<?= $entity_var_singular ?>]);
+        return $this->render('<?= $templates_path ?>/show.html.twig', ['<?= $entity_twig_var_singular ?>' => $<?= $entity_var_singular ?>]);
     }
 
     /**
@@ -138,7 +138,7 @@ class <?= $class_name ?> extends <?= $parent_class_name; ?><?= "\n" ?>
             return $this->redirectToRoute('<?= $route_name ?>_edit', ['<?= $entity_identifier ?>' => $<?= $entity_var_singular ?>->get<?= ucfirst($entity_identifier) ?>()]);
         }
 
-        return $this->render('<?= $templates_path ?>:edit.html.twig', [
+        return $this->render('<?= $templates_path ?>/edit.html.twig', [
             '<?= $entity_twig_var_singular ?>' => $<?= $entity_var_singular ?>,
             'form' => $form->createView(),
         ]);

@@ -137,15 +137,17 @@ class MakeCrudCommand extends Command
             
             $this->io->success('Operation successful!');
         }
+
+        return Command::SUCCESS;
     }
-    
-    /**
-     * Extract unique roles from role hierarchy
-     * 
-     * @param type $roleHierarchy
-     * @return array
-     */
-    protected function extractAvailableRoles($roleHierarchy)
+
+	/**
+	 * Extract unique roles from role hierarchy
+	 *
+	 * @param array $roleHierarchy
+	 * @return array
+	 */
+    protected function extractAvailableRoles(array $roleHierarchy)
     {
         // always add this roles first
         $availableRoles = array(
