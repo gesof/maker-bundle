@@ -7,10 +7,19 @@ services:
     gesof_maker.crud_helper:
         class: Gesof\MakerBundle\Helper\CrudHelper
         arguments: [ '@maker.generator', '@maker.file_manager', '@gesof_maker.doctrine_helper', '%kernel.project_dir%', '%gesof_maker.skeleton_dir%' ]
-    
+
+    gesof_maker.bundle_helper:
+        class: Gesof\MakerBundle\Helper\BundleHelper
+        arguments: [ '@maker.generator', '@maker.file_manager', '%kernel.project_dir%', '%gesof_maker.skeleton_dir%' ]
+
     # console commands
     
     gesof_maker.command.make_crud_command:
         class: Gesof\MakerBundle\Command\MakeCrudCommand
         arguments: [ '@gesof_maker.crud_helper', '%security.role_hierarchy.roles%' ]
+        tags: [ console.command ]
+
+    gesof_maker.command.make_bundle_command:
+        class: Gesof\MakerBundle\Command\MakeBundleCommand
+        arguments: [ '@gesof_maker.bundle_helper' ]
         tags: [ console.command ]
