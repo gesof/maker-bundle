@@ -10,7 +10,11 @@ services:
 
     gesof_maker.bundle_helper:
         class: Gesof\MakerBundle\Helper\BundleHelper
-        arguments: [ '@maker.generator', '@maker.file_manager', '%kernel.project_dir%', '%gesof_maker.skeleton_dir%' ]
+        arguments:
+            - '@maker.generator'
+            - '@maker.file_manager'
+            - '%kernel.project_dir%'
+            - '%gesof_maker.skeleton_dir%'
 
     # console commands
     

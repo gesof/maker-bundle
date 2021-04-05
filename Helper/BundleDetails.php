@@ -86,6 +86,14 @@ class BundleDetails
 	}
 
 	/**
+	 * @return string
+	 */
+	public function getDirectory()
+	{
+		return sprintf('%s/%s', $this->outputDirectory, str_replace('\\', '/', $this->namespace));
+	}
+
+	/**
 	 * @return mixed
 	 */
 	public function getFormat()

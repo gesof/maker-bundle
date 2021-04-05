@@ -92,8 +92,8 @@ class MakeBundleCommand extends Command
 			->setFormat('yaml') // only this is supported for now
 		;
 
-		$output->writeln('Creating: ' . $namespace);
-		$output->writeln('Bundle: ' . $bundleName);
+//		$output->writeln('Creating: ' . $namespace);
+//		$output->writeln('Bundle: ' . $bundleName);
 
 		$this->bundleHelper
 			->setIO($this->io)
@@ -101,6 +101,7 @@ class MakeBundleCommand extends Command
 		;
 
 		$this->bundleHelper->generate();
+
 		return Command::SUCCESS;
 	}
 }
