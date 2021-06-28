@@ -198,7 +198,7 @@ class CrudHelper
 
     /**
      *
-     * @return type
+     * @return array
      */
     public function getEntitiesForAutocomplete()
     {

@@ -40,7 +40,7 @@ class <?= $class_name ?> extends <?= $parent_class_name; ?><?= "\n" ?>
      */
     public function indexAction(): Response
     {
-        /* @var $em \Doctrine\Common\Persistence\ObjectManager */
+        /* @var $em \Doctrine\Persistence\ObjectManager */
         $em = $this->getDoctrine()->getManager();
         $repo = $em->getRepository(<?= $entity_class_name ?>::class);
         
@@ -67,7 +67,7 @@ class <?= $class_name ?> extends <?= $parent_class_name; ?><?= "\n" ?>
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            /* @var $em \Doctrine\Common\Persistence\ObjectManager */
+            /* @var $em \Doctrine\Persistence\ObjectManager */
             $em = $this->getDoctrine()->getManager();
             $em->persist($<?= $entity_var_singular ?>);
             $em->flush();
@@ -91,7 +91,7 @@ class <?= $class_name ?> extends <?= $parent_class_name; ?><?= "\n" ?>
      */
     public function showAction($<?= $entity_identifier ?>): Response
     {
-        /* @var $em \Doctrine\Common\Persistence\ObjectManager */
+        /* @var $em \Doctrine\Persistence\ObjectManager */
         $em = $this->getDoctrine()->getManager();
         $repo = $em->getRepository(<?= $entity_class_name ?>::class);
         
@@ -114,7 +114,7 @@ class <?= $class_name ?> extends <?= $parent_class_name; ?><?= "\n" ?>
      */
     public function editAction(Request $request, $<?= $entity_identifier ?>): Response
     {
-        /* @var $em \Doctrine\Common\Persistence\ObjectManager */
+        /* @var $em \Doctrine\Persistence\ObjectManager */
         $em = $this->getDoctrine()->getManager();
         $repo = $em->getRepository(<?= $entity_class_name ?>::class);
         
@@ -154,7 +154,7 @@ class <?= $class_name ?> extends <?= $parent_class_name; ?><?= "\n" ?>
      */
     public function deleteAction(Request $request, $<?= $entity_identifier ?>): Response
     {
-        /* @var $em \Doctrine\Common\Persistence\ObjectManager */
+        /* @var $em \Doctrine\Persistence\ObjectManager */
         $em = $this->getDoctrine()->getManager();
         $repo = $em->getRepository(<?= $entity_class_name ?>::class);
         
@@ -165,7 +165,7 @@ class <?= $class_name ?> extends <?= $parent_class_name; ?><?= "\n" ?>
         }
         
         if ($this->isCsrfTokenValid('delete'.$<?= $entity_var_singular ?>->get<?= ucfirst($entity_identifier) ?>(), $request->request->get('_token'))) {
-            /* @var $em \Doctrine\Common\Persistence\ObjectManager */
+            /* @var $em \Doctrine\Persistence\ObjectManager */
             $em = $this->getDoctrine()->getManager();
             $em->remove($<?= $entity_var_singular ?>);
             $em->flush();
