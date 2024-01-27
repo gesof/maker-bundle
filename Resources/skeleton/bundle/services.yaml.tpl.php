@@ -1,8 +1,8 @@
 services:
     <?= $controller_full_class_name ?>:
-        tags: ['controller.service_arguments']
-        calls:
-            - setContainer: [ '@service_container' ]
+        resource: '../../Controller/*'
+        autowire: true
+        autoconfigure: true
 
 #    <?= $extension_alias ?>.example:
 #        class: <?= $namespace ?>\Services\Example
